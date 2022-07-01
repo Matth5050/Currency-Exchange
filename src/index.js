@@ -2,14 +2,14 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import rateCheck from './rateCheck.js';
+import rateCheck from './js/rateCheck';
 
 function getElements(response) {
-    if (response.result === "success") {
-      console.log(`${response.conversion_result} `);
+    if (response.conversion_result) {
+      $('.output').append(`<p>${response.conversion_result}</p>`);
       
     } else {
-      $('.showErrors').text(`There was an error: ${response}`);
+        $('.output').append(`<p>There was an error: ${response}</p>`);
     }
   }
 
@@ -20,7 +20,10 @@ async function makeApiCall(country1, country2, amount) {
 }
 
 $(document).ready(function() {
-    $('#btn').click(function() {
-      console.log(makeApiCall(country1, country2, amount));
+    $('#form').submit(function() {
+        const country1 = $('#currency1').val();
+        const country2 = $('#currency2').val();
+        const amount = $('#amount').val();
+        makeApiCall(country1, country2, amount);
     });
   });
