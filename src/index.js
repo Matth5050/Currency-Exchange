@@ -12,3 +12,15 @@ function getElements(response) {
       $('.showErrors').text(`There was an error: ${response}`);
     }
   }
+
+async function makeApiCall(country1, country2, amount) {
+    const response = await rateCheck.getRates(country1, country2, amount);
+    console.log(response);
+    getElements(response);
+}
+
+$(document).ready(function() {
+    $('#btn').click(function() {
+      console.log(makeApiCall(country1, country2, amount));
+    });
+  });
